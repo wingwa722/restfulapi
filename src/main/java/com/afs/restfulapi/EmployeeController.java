@@ -13,15 +13,17 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository){
+    public EmployeeController(EmployeeRepository employeeRepository, EmployeeService employeeService){
         this.employeeRepository = employeeRepository;
+        this.employeeService = employeeService;
     }
 
 
     @GetMapping
     public List<Employee> findAllEmployees(){
-        return this.employeeRepository.findAll();
+        return this.employeeService.findAll();
     }
 
     // /employees/{id}
