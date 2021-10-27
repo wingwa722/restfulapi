@@ -26,11 +26,9 @@ public class EmployeeRepository {
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public Employee findByGender(String gender) {
+    public List<Employee> findByGender(String gender) {
         return this.employees.stream()
-                .filter((item -> gender.equals(item.getGender())))
-                .findFirst()
-                .orElseThrow(EmployeeNotFoundException::new);
+                .filter((item -> gender.equals(item.getGender()))).collect(Collectors.toList());
     }
 
     public Employee createEmployee(Employee employee) {
@@ -60,5 +58,9 @@ public class EmployeeRepository {
                 .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
         return new PageImpl<>(page, pageable, this.employees.size());
+    }
+
+    public void deleteAll() {
+        this.employees.clear();
     }
 }

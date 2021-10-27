@@ -30,13 +30,14 @@ public class EmployeeController {
         return this.employeeRepository.findById(id);
     }
 
-    // /employees/{gender}
-    @GetMapping("/{gender")
-    public Employee findByGender(@PathVariable String gender){
+    // /employees?{gender=female}
+    @GetMapping(params = "gender")
+    public List<Employee> findByGender(@RequestParam String gender){
         return this.employeeRepository.findByGender(gender);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Employee createEmployee(@RequestBody Employee employee){
         return this.employeeRepository.createEmployee(employee);
     }
