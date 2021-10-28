@@ -10,6 +10,4 @@ import java.util.Optional;
 @Repository
 public interface NewEmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findAllByGender(String gender);
-
-    List<Employee> findAllByCompanyId(Integer id);
 }

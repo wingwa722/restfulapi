@@ -1,24 +1,57 @@
 package com.afs.restfulapi.Controller;
 
 import com.afs.restfulapi.Company;
+import com.afs.restfulapi.CompanyService;
+import com.afs.restfulapi.Employee;
 import com.afs.restfulapi.Repository.CompanyRespository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/Companies")
 public class CompanyController {
-    public final CompanyRespository companyRespository;
+    private CompanyService companyService;
 
-    public CompanyController (CompanyRespository companyRespository){
-        this.companyRespository = companyRespository;
+    public CompanyController (CompanyService companyService){
+        this.companyService = companyService;
     }
 
     @GetMapping
     public List<Company> findAllCompany(){
-        return this.companyRespository.findAll();
+        return this.companyService.findAll();
     }
+
+    // /employees/{id}
+    @GetMapping("/{id")
+    public Company findByID(@PathVariable Integer id){
+        return this.companyService.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company createCompany(@RequestBody Company company){
+        return this.companyService.createCompany(company);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Integer id){
+        this.companyService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public Company editCompany(@PathVariable Integer id, @RequestBody Company updatedCompany) {
+        return this.companyService.edit(id, updatedCompany);
+    }
+
+    @GetMapping(params = {"page","size"})
+    public PageImpl<Company> findPagingCompany(@PageableDefault Pageable pageable){
+        return this.companyService.findingPageCompany(pageable);
+    }
+
 }
