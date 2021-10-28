@@ -2,12 +2,14 @@ package com.afs.restfulapi;
 
 
 import com.afs.restfulapi.Repository.EmployeeRepository;
+import com.afs.restfulapi.Repository.NewEmployeeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -18,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Sql(statements = "alter table employee alter column id restart with 1")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeControllerTest {
@@ -26,8 +28,11 @@ public class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+//    @Autowired
+//    private EmployeeRepository employeeRepository;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private NewEmployeeRepository employeeRepository;
 
     @AfterEach
     void tearDown(){
@@ -39,8 +44,8 @@ public class EmployeeControllerTest {
         Employee employee1 = new Employee ("Wing", 22, "Female", 101);
         Employee employee2 = new Employee ("Tommy", 18, "Male", 102);
 
-        employeeRepository.createEmployee(employee1);
-        employeeRepository.createEmployee(employee2);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
 
         //when
         ResultActions resultActions = mockMvc.perform(get("/employees"));
@@ -71,8 +76,8 @@ public class EmployeeControllerTest {
         Employee employee1 = new Employee("Wing", 22, "Female", 101);
         Employee employee2 = new Employee ("Tommy", 18, "Male", 102);
 
-        employeeRepository.createEmployee(employee1);
-        employeeRepository.createEmployee(employee2);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
 
         //when
         ResultActions resultActions = mockMvc.perform(get("/employees?gender=Female"));

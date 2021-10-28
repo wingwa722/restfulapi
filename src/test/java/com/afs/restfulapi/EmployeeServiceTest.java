@@ -1,6 +1,7 @@
 package com.afs.restfulapi;
 
 import com.afs.restfulapi.Repository.EmployeeRepository;
+import com.afs.restfulapi.Repository.NewEmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,17 +14,21 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 public class EmployeeServiceTest {
     @Mock
-    private EmployeeRepository employeeRepository;
+    private NewEmployeeRepository employeeRepository;
+
+//    @Mock
+//    private newEmployeeRepository newEmployeeRepository;
 
     @InjectMocks
     private EmployeeService employeeService;
 
     @Test
-    void should_return_all_employees_when_find_all_given_employees() {
+    void should_return_all_employees_when_find_all_given_2x_employees() {
         //given
         List<Employee> expected = Arrays.asList(new Employee(1, "Wing", 22, "Female", 101));
         when(employeeRepository.findAll()).thenReturn(expected);
@@ -39,10 +44,10 @@ public class EmployeeServiceTest {
     void should_return_employee_1_when_find_by_id_1_given_employee1() {
         //given
         Employee expected = new Employee(1, "Wing", 22, "Female", 101);
-        when(employeeRepository.findById(1)).thenReturn(expected);
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(expected));
 
         //when
-        Employee actual = employeeRepository.findById(1);
+        Employee actual = employeeService.findById(1);
 
         //then
         assertEquals(expected, actual);
@@ -53,9 +58,9 @@ public class EmployeeServiceTest {
     void should_return_updated_employee_when_edit_employee_given_employee_update_info() {
         //given
         Employee employee = new Employee(1, "Wing", 22, "Female", 101);
-        when(employeeRepository.findById(1)).thenReturn(employee);
-        when(employeeRepository.save(any(), any(Employee.class)))
-                .then(invocation -> invocation.getArgument(1));
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(employee));
+        when(employeeRepository.save(any(Employee.class)))
+                .then(invocation -> invocation.getArgument(0));
 
         Employee updateInfo = new Employee(null, null, null, 999999);
 
