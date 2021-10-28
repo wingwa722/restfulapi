@@ -1,5 +1,6 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.Repository;
 
+import com.afs.restfulapi.Company;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

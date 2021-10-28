@@ -1,12 +1,14 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.Controller;
 
+import com.afs.restfulapi.Employee;
+import com.afs.restfulapi.EmployeeService;
+import com.afs.restfulapi.Repository.EmployeeRepository;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,7 +34,7 @@ public class EmployeeController {
         return this.employeeRepository.findById(id);
     }
 
-    // /employees?{gender=female}
+    // /employees?gender=female
     @GetMapping(params = "gender")
     public List<Employee> findByGender(@RequestParam String gender){
         return this.employeeRepository.findByGender(gender);

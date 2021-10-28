@@ -1,5 +1,7 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.Repository;
 
+import com.afs.restfulapi.Employee;
+import com.afs.restfulapi.Exception.EmployeeNotFoundException;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -49,7 +51,7 @@ public class EmployeeRepository {
     public Employee save(Integer id, Employee updatedEmploy) {
         this.deleteById(id);
         this.employees.add(updatedEmploy);
-        return null;
+        return updatedEmploy;
     }
 
     public PageImpl<Employee> findPagingEmployees(Pageable pageable) {
@@ -58,6 +60,16 @@ public class EmployeeRepository {
                 .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
         return new PageImpl<>(page, pageable, this.employees.size());
+    }
+
+    public Employee updateEmployee(Employee updatedEmployee){
+        Employee employee = this.employees.stream()
+                .filter(item -> updatedEmployee.getId().equals(item.getId()))
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
+        this.employees.remove(employee);
+        this.employees.add(updatedEmployee);
+        return employee;
     }
 
     public void deleteAll() {

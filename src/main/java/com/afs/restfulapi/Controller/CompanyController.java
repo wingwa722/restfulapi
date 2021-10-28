@@ -1,5 +1,7 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.Controller;
 
+import com.afs.restfulapi.Company;
+import com.afs.restfulapi.Repository.CompanyRespository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
