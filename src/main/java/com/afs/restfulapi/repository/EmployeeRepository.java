@@ -1,7 +1,7 @@
-package com.afs.restfulapi.Repository;
+package com.afs.restfulapi.repository;
 
-import com.afs.restfulapi.Employee;
-import com.afs.restfulapi.Exception.EmployeeNotFoundException;
+import com.afs.restfulapi.entity.Employee;
+import com.afs.restfulapi.exception.EmployeeNotFoundException;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

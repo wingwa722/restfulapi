@@ -1,9 +1,7 @@
-package com.afs.restfulapi.Controller;
+package com.afs.restfulapi.controller;
 
-import com.afs.restfulapi.Company;
-import com.afs.restfulapi.CompanyService;
-import com.afs.restfulapi.Employee;
-import com.afs.restfulapi.Repository.CompanyRespository;
+import com.afs.restfulapi.entity.Company;
+import com.afs.restfulapi.service.CompanyService;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Companies")
+@RequestMapping("/companies")
 public class CompanyController {
     private CompanyService companyService;
 

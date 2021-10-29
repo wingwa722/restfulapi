@@ -1,7 +1,7 @@
-package com.afs.restfulapi.Advice;
+package com.afs.restfulapi.advice;
 
-import com.afs.restfulapi.Exception.CompanyNotFoundException;
-import com.afs.restfulapi.Exception.EmployeeNotFoundException;
+import com.afs.restfulapi.exception.CompanyNotFoundException;
+import com.afs.restfulapi.exception.EmployeeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

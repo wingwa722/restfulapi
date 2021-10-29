@@ -1,6 +1,6 @@
-package com.afs.restfulapi.Repository;
+package com.afs.restfulapi.repository;
 
-import com.afs.restfulapi.Company;
+import com.afs.restfulapi.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

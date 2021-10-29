@@ -1,4 +1,4 @@
-package com.afs.restfulapi.Advice;
+package com.afs.restfulapi.advice;
 
 public class ErrorResponse {
     private Integer code;

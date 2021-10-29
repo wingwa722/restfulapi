@@ -1,7 +1,8 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.service;
 
-import com.afs.restfulapi.Exception.CompanyNotFoundException;
-import com.afs.restfulapi.Repository.NewCompanyRepository;
+import com.afs.restfulapi.entity.Company;
+import com.afs.restfulapi.exception.CompanyNotFoundException;
+import com.afs.restfulapi.repository.NewCompanyRepository;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

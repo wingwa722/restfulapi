@@ -1,4 +1,4 @@
-package com.afs.restfulapi;
+package com.afs.restfulapi.entity;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,7 +1,8 @@
 package com.afs.restfulapi;
 
-import com.afs.restfulapi.Repository.EmployeeRepository;
-import com.afs.restfulapi.Repository.NewEmployeeRepository;
+import com.afs.restfulapi.entity.Employee;
+import com.afs.restfulapi.repository.NewEmployeeRepository;
+import com.afs.restfulapi.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
