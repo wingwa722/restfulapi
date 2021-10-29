@@ -1,6 +1,9 @@
 package com.afs.restfulapi.controller;
 
+import com.afs.restfulapi.dto.EmployeeRequest;
 import com.afs.restfulapi.entity.Employee;
+import com.afs.restfulapi.mapper.EmployeeMapper;
+import com.afs.restfulapi.dto.EmployeeResponse;
 import com.afs.restfulapi.service.EmployeeService;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -9,20 +12,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+    private EmployeeMapper employeeMapper;
     private EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService){
+    public EmployeeController(EmployeeMapper employeeMapper, EmployeeService employeeService){
+        this.employeeMapper = employeeMapper;
         this.employeeService = employeeService;
     }
 
 
     @GetMapping
-    public List<Employee> findAllEmployees(){
-        return this.employeeService.findAll();
+    public List<EmployeeResponse> findAllEmployees(){
+        return this.employeeService.findAll().stream()
+                .map(employee -> employeeMapper.toResponse(employee)).collect(Collectors.toList());
     }
 
     // /employees/{id}
@@ -39,8 +46,8 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee){
-        return this.employeeService.createEmployee(employee);
+    public Employee createEmployee(@RequestBody EmployeeRequest employeeRequest){
+        return this.employeeService.createEmployee(employeeMapper.toEntity(employeeRequest));
     }
 
     @DeleteMapping("/{id}")
@@ -50,8 +57,8 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee editEmployee(@PathVariable Integer id, @RequestBody Employee updatedEmployee) {
-        return this.employeeService.edit(id, updatedEmployee);
+    public Employee editEmployee(@PathVariable Integer id, @RequestBody EmployeeRequest employeeRequest) {
+        return this.employeeService.edit(id, employeeMapper.toEntity(employeeRequest));
     }
 
     @GetMapping(params = {"page","size"})

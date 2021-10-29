@@ -13,7 +13,10 @@ public class Company {
     @OneToMany(mappedBy = "companyId")
     List<Employee> employees;
 
-    public Company(String companyName,List<Employee> employees){
+    public Company() {
+    }
+
+    public Company(String companyName, List<Employee> employees){
         this.companyId = null;
         this.companyName = companyName;
         this.employees = employees;
