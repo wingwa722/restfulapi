@@ -11,10 +11,6 @@ import java.util.List;
 @Service
 public class CompanyService {
     private final NewCompanyRepository newCompanyRepository;
-    //@Controller
-    //@Service
-    //@Repository
-    //@Component
 
 
     public CompanyService(NewCompanyRepository newCompanyRepository){
