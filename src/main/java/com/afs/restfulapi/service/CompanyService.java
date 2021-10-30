@@ -48,6 +48,6 @@ public class CompanyService {
     }
 
     public PageImpl<Company> findingPageCompany(Pageable pageable){
-        return null;
+        return (PageImpl<Company>) newCompanyRepository.findAll(pageable);
     }
 }

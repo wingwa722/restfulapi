@@ -1,6 +1,9 @@
 package com.afs.restfulapi.controller;
 
+import com.afs.restfulapi.dto.CompanyRequest;
+import com.afs.restfulapi.dto.CompanyResponse;
 import com.afs.restfulapi.entity.Company;
+import com.afs.restfulapi.mapper.CompanyMapper;
 import com.afs.restfulapi.service.CompanyService;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -9,19 +12,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
+    private CompanyMapper companyMapper;
     private CompanyService companyService;
 
-    public CompanyController (CompanyService companyService){
+    public CompanyController (CompanyMapper companyMapper, CompanyService companyService){
+        this.companyMapper = companyMapper;
         this.companyService = companyService;
     }
 
     @GetMapping
-    public List<Company> findAllCompany(){
-        return this.companyService.findAll();
+    public List<CompanyResponse> findAllCompany(){
+        return this.companyService.findAll().stream()
+                .map(company -> companyMapper.toResponse(company)).collect(Collectors.toList());
     }
 
     // /employees/{id}
@@ -32,8 +39,8 @@ public class CompanyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Company createCompany(@RequestBody Company company){
-        return this.companyService.createCompany(company);
+    public Company createCompany(@RequestBody CompanyRequest companyRequest){
+        return this.companyService.createCompany(companyMapper.toEntity(companyRequest));
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +50,8 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
-    public Company editCompany(@PathVariable Integer id, @RequestBody Company updatedCompany) {
-        return this.companyService.edit(id, updatedCompany);
+    public Company editCompany(@PathVariable Integer id, @RequestBody CompanyRequest companyRequest) {
+        return this.companyService.edit(id, companyMapper.toEntity(companyRequest));
     }
 
     @GetMapping(params = {"page","size"})

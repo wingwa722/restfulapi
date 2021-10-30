@@ -14,10 +14,6 @@ import java.util.List;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final NewEmployeeRepository newEmployeeRepository;
-    //@Controller
-    //@Service
-    //@Repository
-    //@Component
 
 
     public EmployeeService(EmployeeRepository employeeRepository, NewEmployeeRepository newEmployeeRepository){
@@ -65,6 +61,7 @@ public class EmployeeService {
     }
 
    public PageImpl<Employee> findingPageEmployees(Pageable pageable){
-        return null;
+        return (PageImpl<Employee>) newEmployeeRepository.findAll(pageable);
    }
+
 }
