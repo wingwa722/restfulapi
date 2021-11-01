@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -96,35 +97,30 @@ public class EmployeeControllerTest {
     }
 
     //Error appear
-//    @Test
-//    void should_return_created_employee_when_create_employee_given_new_employee_info() throws Exception{
-//        //given
-//        String newEmployee = "[\n" +
-//                "    {\n" +
-//                "        \"id\": 1,\n" +
-//                "        \"name\": \"Wing\",\n" +
-//                "        \"age\": 22,\n" +
-//                "        \"gender\": \"Female\",\n" +
-//                "        \"salary\": 101\n" +
-//                "    }\n" +
-//                "]";
-//
-//        //when
-//        ResultActions resultActions = mockMvc.perform(post("/employees")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(newEmployee));
-//
-//        //then
-//        String expected = "[\n" +
-//                "    {\n" +
-//                "        \"id\": 1,\n" +
-//                "        \"name\": \"Wing\",\n" +
-//                "        \"age\": 22,\n" +
-//                "        \"gender\": \"Female\",\n" +
-//                "        \"salary\": 101\n" +
-//                "    }\n" +
-//                "]";
-//                resultActions.andExpect(status().isCreated())
-//                .andExpect(content().json(expected));
-//    }
+    @Test
+    void should_return_created_employee_when_create_employee_given_new_employee_info() throws Exception{
+        //given
+        String newEmployee = "{\n" +
+                "        \"name\": \"Wing1234122\",\n" +
+                "        \"gender\": \"Female\",\n" +
+                "        \"age\": 18,\n" +
+                "        \"id\": 4\n" +
+                "    }";
+
+        //when
+        ResultActions resultActions = mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newEmployee));
+
+        //then
+        String expected = "{\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": \"Wing1234122\",\n" +
+                "    \"age\": 18,\n" +
+                "    \"gender\": \"Female\",\n" +
+                "    \"salary\": null\n" +
+                "}";
+                resultActions.andExpect(status().isCreated())
+                .andExpect(content().json(expected));
+    }
 }

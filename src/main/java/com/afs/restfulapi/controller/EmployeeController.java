@@ -28,17 +28,17 @@ public class EmployeeController {
 
     @GetMapping
     public List<EmployeeResponse> findAllEmployees(){
-        return this.employeeService.findAll().stream()
-                .map(employee -> employeeMapper.toResponse(employee)).collect(Collectors.toList());
+        return this.employeeService.findAll()
+                .stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
-    // /employees/{id}
     @GetMapping("/{id")
     public Employee findByID(@PathVariable Integer id){
         return this.employeeService.findById(id);
     }
 
-    // /employees?gender=female
     @GetMapping(params = "gender")
     public List<Employee> findByGender(@RequestParam String gender){
         return this.employeeService.findByGender(gender);
